@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
         Button btnGallery = (Button) findViewById(R.id.btnGallery);
 
         initView();
+        embedImages();
 
         // aksi jika tombol browse galeri diklik
         btnGallery.setOnClickListener(new View.OnClickListener() {
@@ -86,9 +87,8 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
                 startActivityForResult(new Intent(MainActivity.this,
                                 ScanningActivity.class),
                         ScanningActivity.SCANNING_FOR_PRINTER);
-
-            printText();
-            printImages();
+                printText();
+                printImages();
         });
 
         changePairAndUnpair();
@@ -117,6 +117,16 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
                 .build());
 
         printing.print(printables);
+    }
+
+    // tampilkan gambar (untuk kebutuhan uji coba)
+    private void embedImages() {
+        ArrayList<Printable> printables = new ArrayList<>();
+
+        //Load image
+        Picasso.get()
+                .load("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/512px-Gmail_icon_%282020%29.svg.png")
+                .into(imgGallery);
     }
 
     // cetak gambar
