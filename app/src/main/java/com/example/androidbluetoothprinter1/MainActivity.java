@@ -116,7 +116,8 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
                 .setNewLinesAfter(1)
                 .build());
 
-        printing.print(printables);
+        //printing.print(printables);
+        Printooth.INSTANCE.printer().print(printables);
     }
 
     // tampilkan gambar (untuk kebutuhan uji coba)
@@ -141,7 +142,8 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                         printables.add(new ImagePrintable.Builder(bitmap).build());
 
-                        printing.print(printables);
+                        //printing.print(printables);
+                        Printooth.INSTANCE.printer().print(printables);
                     }
 
                     @Override
@@ -158,7 +160,8 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
 
     // perintah print ke device
     private void initPrinting() {
-        if (!Printooth.INSTANCE.hasPairedPrinter())
+        //if (!Printooth.INSTANCE.hasPairedPrinter())
+        if (Printooth.INSTANCE.hasPairedPrinter())
             printing = Printooth.INSTANCE.printer();
         if (printing != null)
             printing.setPrintingCallback(this);
