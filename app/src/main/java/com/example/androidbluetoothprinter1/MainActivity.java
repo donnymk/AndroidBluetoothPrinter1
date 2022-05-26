@@ -137,15 +137,14 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
 
         //Load image
         Picasso.get()
-                //.load("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/512px-Gmail_icon_%282020%29.svg.png")
-                .load(R.drawable.foldedhand)
-                .resize(400, 400)
+                .load(R.drawable.bwposter)
+                .resize(396, 704)
                 .centerInside()
                 //.into(imgGallery);
                 .into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        //printables.add(new ImagePrintable.Builder(bitmap).build());
+                        //bitmap.setWidth(208);
                         bmGrayScale = toGrayscale(bitmap);
                         imgGallery.setImageBitmap(bmGrayScale);
                     }
@@ -168,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
 
         //Load image
 /*        Picasso.get()
-                //.load("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/512px-Gmail_icon_%282020%29.svg.png")
                 .load(R.drawable.foldedhand)
                 .resize(400, 400)
                 .centerInside()
@@ -194,7 +192,9 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
 
                     }
                 });*/
-        printables.add(new ImagePrintable.Builder(bmGrayScale).build());
+        printables.add(new ImagePrintable.Builder(bmGrayScale)
+                .setAlignment(DefaultPrinter.Companion.getALIGNMENT_CENTER())
+                .build());
         Printooth.INSTANCE.printer().print(printables);
     }
 
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
                 // for gallery
                 //imgGallery.setImageURI(data.getData());
                 Uri dataUri = data.getData();
-                int w = imgGallery.getWidth();
+/*                int w = imgGallery.getWidth();
                 int h = imgGallery.getHeight();
                 Toast.makeText(MainActivity.this,
                         dataUri.toString() + "\n" +
@@ -288,6 +288,7 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
                     bmNormal = bmGrayScale = null;
                     bmNormal = loadScaledBitmap(dataUri, w, h);
                     bmGrayScale = toGrayscale(bmNormal);
+                    
                     imgGallery.setImageBitmap(bmGrayScale);
                     Toast.makeText(MainActivity.this,
                             bmGrayScale.getWidth() + " x " + bmGrayScale.getHeight(),
@@ -295,7 +296,28 @@ public class MainActivity extends AppCompatActivity implements PrintingCallback 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+                }*/
+                Picasso.get()
+                        .load(dataUri)
+                        .resize(396, 704)
+                        .centerInside()
+                        .into(new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                bmGrayScale = toGrayscale(bitmap);
+                                imgGallery.setImageBitmap(bmGrayScale);
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                            }
+                        });
             }
         }
 
